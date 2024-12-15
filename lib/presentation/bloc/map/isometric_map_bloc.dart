@@ -1,8 +1,7 @@
-import 'package:isomap_sample/presentation/bloc/map/IsometricMapEvent.dart';
-import 'package:isomap_sample/presentation/bloc/map/IsometricMapState.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_event.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isomap_sample/presentation/bloc/menue/menu_bloc.dart';
-import 'package:isomap_sample/presentation/bloc/menue/menu_event.dart';
 
 class IsometricMapBloc extends Bloc<IsometricMapEvent, IsometricMapState>{
   //final MenuBloc? menuBloc;

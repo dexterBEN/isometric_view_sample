@@ -5,9 +5,9 @@ import 'package:flame/events.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
-import 'package:isomap_sample/presentation/bloc/map/IsometricMapBloc.dart';
-import 'package:isomap_sample/presentation/bloc/map/IsometricMapEvent.dart';
-import 'package:isomap_sample/presentation/bloc/map/IsometricMapState.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_bloc.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_event.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
 
 
 class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListenable<IsometricMapBloc, IsometricMapState>{

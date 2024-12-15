@@ -1,14 +1,10 @@
-import 'dart:math';
-
-import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:isomap_sample/presentation/bloc/map/IsometricMapBloc.dart';
-import 'package:isomap_sample/presentation/bloc/map/IsometricMapState.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_bloc.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
 
 import 'presentation/widgets/tile_component.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
 
@@ -58,9 +54,7 @@ class IsometricGame extends FlameGame {
         ),
       ],
     );
-    await add(providers); // Les providers doivent être ajoutés en premier
-
-    // Ajouter les tuiles après les providers
+    await add(providers);
     
   }
 }
