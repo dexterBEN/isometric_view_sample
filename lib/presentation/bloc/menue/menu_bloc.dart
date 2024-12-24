@@ -5,6 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MenuBloc extends Bloc<MenuEvent, MenuState> {
   MenuBloc() : super(MenuClosed()) {
     on<OpenMenu>((event, emit) => emit(MenuOpened()));
-    on<SelectElement>((event, emit) => emit(ElementSelected()));
+    on<RessourceSelected>((event, emit) => emit(ElementSelected()));
   }
 }

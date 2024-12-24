@@ -2,14 +2,37 @@ import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:isomap_sample/presentation/bloc/map/isometric_map_bloc.dart';
+import 'package:isomap_sample/presentation/bloc/map/isometric_map_event.dart';
 import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
+import 'package:isomap_sample/presentation/widgets/menu_widget.dart';
 
+import 'domain/models/ressource.dart';
 import 'presentation/widgets/tile_component.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-
   runApp(
-    GameWidget(game: IsometricGame()),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<IsometricMapBloc>(
+          create: (context) => IsometricMapBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        home: Scaffold(
+          body: Stack(
+            children: [
+              GameWidget(game: IsometricGame()),
+              Positioned(
+                right: 550,
+                bottom: 50,
+                child: MenuWidget(), // Menu Flutter
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
   );
 }
 
@@ -36,11 +59,10 @@ class IsometricGame extends FlameGame {
         print("tile id:${tileId}");
 
         final tile = TileComponent(
-          position: Vector2(x, y),
-          size: Vector2(tileSize, tileSize / 2),
-          tileId: tileId
-        );
-        
+            position: Vector2(x, y),
+            size: Vector2(tileSize, tileSize / 2),
+            tileId: tileId);
+
         tiles.add(tile);
       }
     }
@@ -49,14 +71,9 @@ class IsometricGame extends FlameGame {
     final providers = FlameMultiBlocProvider(
       providers: [
         FlameBlocProvider<IsometricMapBloc, IsometricMapState>(
-          create: () => IsometricMapBloc(),
-          children: tiles
-        ),
+            create: () => IsometricMapBloc(), children: tiles),
       ],
     );
     await add(providers);
-    
   }
 }
-
-

@@ -1,8 +1,18 @@
-abstract class MenuEvent {}
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
-class OpenMenu extends MenuEvent {}
+abstract class MenuEvent extends Equatable {}
 
-class SelectElement extends MenuEvent {
+class OpenMenu extends MenuEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class RessourceSelected extends MenuEvent {
+  final String imagePath;
+
+  RessourceSelected(this.imagePath);
   
-  SelectElement();
+  @override
+  List<Object?> get props => [imageCache];
 }

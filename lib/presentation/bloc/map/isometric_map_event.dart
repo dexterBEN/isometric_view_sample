@@ -22,3 +22,12 @@ class PlaceElementOnTile extends IsometricMapEvent {
   @override
   List<Object?> get props => [tileId, resource];
 }
+
+class UpdateSelectedTileEvent extends IsometricMapEvent {
+  final String imagePath;
+
+  const UpdateSelectedTileEvent(this.imagePath);
+  
+  @override
+  List<Object?> get props => [imagePath];
+}
