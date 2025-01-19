@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
-import 'package:isomap_sample/domain/models/ressource.dart';
 
 abstract class IsometricMapState extends Equatable {
 
   const IsometricMapState();
-
+  @override
+  List<Object> get props => [];
 }
 
 class MapInitial extends IsometricMapState {
-  MapInitial();
+  const MapInitial();
   
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class TileSelected extends IsometricMapState {
@@ -19,14 +19,13 @@ class TileSelected extends IsometricMapState {
   const TileSelected(this.tileId);
   
   @override
-  List<Object?> get props => [tileId];
+  List<Object> get props => [tileId];
 }
 
-class ElementPlacedOnTile extends IsometricMapState {
-  final int tileId;
-  final Resource resource;
-  const ElementPlacedOnTile(this.tileId, this.resource);
+class CreateNewResource extends IsometricMapState {
+  final String resource;
+  const CreateNewResource(this.resource);
   
   @override
-  List<Object?> get props => [tileId, resource];
+  List<Object> get props => [resource];
 }

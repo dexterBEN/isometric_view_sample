@@ -1,32 +1,31 @@
 import 'package:equatable/equatable.dart';
-import 'package:isomap_sample/domain/models/ressource.dart';
+import 'package:isomap_sample/domain/models/resource.dart';
 
 abstract class IsometricMapEvent extends Equatable {
-
-  const IsometricMapEvent();
+  final int tileId;
+  const IsometricMapEvent(this.tileId);
 }
 
 class TileClicked extends IsometricMapEvent {
-  final int tileId;
-  const TileClicked(this.tileId);
+  
+  const TileClicked(super.tileId);
   
   @override
   List<Object?> get props => [tileId];
 }
 
-class PlaceElementOnTile extends IsometricMapEvent {
-  final int tileId;
-  final Resource resource;
-  const PlaceElementOnTile(this.tileId, this.resource);
+class SelectRessource extends IsometricMapEvent {
+  final String resource;
+  const SelectRessource(this.resource) : super(0);
   
   @override
-  List<Object?> get props => [tileId, resource];
+  List<Object?> get props => [resource];
 }
 
 class UpdateSelectedTileEvent extends IsometricMapEvent {
   final String imagePath;
 
-  const UpdateSelectedTileEvent(this.imagePath);
+  const UpdateSelectedTileEvent(this.imagePath) : super(0);
   
   @override
   List<Object?> get props => [imagePath];

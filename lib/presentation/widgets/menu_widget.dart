@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:isomap_sample/domain/models/ressource.dart';
 import 'package:isomap_sample/presentation/bloc/map/isometric_map_bloc.dart';
 import 'package:isomap_sample/presentation/bloc/map/isometric_map_event.dart';
 import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
@@ -9,7 +8,6 @@ class MenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Accéder au bloc ou à d'autres données nécessaires
-    final mapBloc = context.read<IsometricMapBloc>();
 
     List<String> paths = [
       "../../../assets/blocks_1.png",
@@ -21,31 +19,38 @@ class MenuWidget extends StatelessWidget {
       "../../../assets/blocks_7.png"
     ];
 
-    return BlocListener<IsometricMapBloc, IsometricMapState>(
+    return BlocConsumer<IsometricMapBloc, IsometricMapState>(
       listener: (context, state) {
-        if (state is TileSelected) {
-          print("Selected tile ID in Menu: ${state.tileId}");
-        }
+  
       },
-      child: Container(
-        width: 900,
-        height: 80,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade900.withOpacity(0.8),
-          borderRadius: BorderRadius.all(
-            Radius.circular(5),
+      builder: (BuildContext context, IsometricMapState state) {
+        return Container(
+          width: 900,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade900.withOpacity(0.8),
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(
-            paths.length,
-            (index) {
-              return Image.network(paths[index]);
-            },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(
+              paths.length,
+              (index) {
+                return InkWell(
+                  child: Image.network(paths[index]),
+                  onTap: () {
+                    final isometricMapBloc = context.read<IsometricMapBloc>();
+
+                    isometricMapBloc.add(SelectRessource(paths[index]));
+                  },
+                );
+              },
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
