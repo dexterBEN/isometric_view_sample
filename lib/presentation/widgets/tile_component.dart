@@ -31,7 +31,6 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
   @override
   void onTapDown(TapDownEvent event) {
     _isHovered = !_isHovered;
-    // Exemple : émettre un événement au Bloc lors d'un tap
     bloc.add(TileClicked(tileId!));
   }
 
@@ -48,16 +47,9 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
     _borderPaint.color = _isHovered ? Colors.yellow : Colors.white;
     canvas.drawPath(path, _borderPaint);
     
-    final bounds = path.getBounds();
-    final centerX = bounds.center.dx;
-    final centerY = bounds.center.dy;
+    
     if (tileImage != null) {
-      final imageWidth = tileImage!.width.toDouble();
-    final imageHeight = tileImage!.height.toDouble();
-
-    final offsetX = centerX - (imageWidth / 2);
-    final offsetY = centerY - imageHeight / 2;
-      canvas.drawImage(tileImage!, Offset(offsetX, offsetY), _borderPaint);
+      placeRessourceOnTile(path, canvas);
     }
     
   }
@@ -68,10 +60,6 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
     if (state is TileSelected && state.tileId == tileId) {
       _isHovered = true;
     } 
-    
-    // else {
-    //   _isHovered = false;
-    // }
 
     if (state is CreateNewResource && _isHovered) {
       resourceImagePath = state.resource;
@@ -93,5 +81,19 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
     }
 
     return false;
+  }
+
+  placeRessourceOnTile(Path path, Canvas canvas) {
+    final bounds = path.getBounds();
+    final centerX = bounds.center.dx;
+    final centerY = bounds.center.dy;
+    
+      final imageWidth = tileImage!.width.toDouble();
+    final imageHeight = tileImage!.height.toDouble();
+
+    final offsetX = centerX - (imageWidth / 2);
+    final offsetY = centerY - imageHeight / 2;
+      canvas.drawImage(tileImage!, Offset(offsetX, offsetY), _borderPaint);
+    
   }
 }
