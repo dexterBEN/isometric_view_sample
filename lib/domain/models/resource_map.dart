@@ -6,5 +6,5 @@ class RessourceMap {
     this.resources = const []
   });
 
-  final List <Resource?> resources;
+  final List <List<Resource?>> resources;
 }

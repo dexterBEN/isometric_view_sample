@@ -15,7 +15,6 @@ class IsometricGame extends FlameGame {
   double get startX => (size.x - (columns * tileSize)) / 2;
   double get startY => (size.y - (rows * tileSize)) / 2;
 
-  TileComponent? selectedTile;
   IsometricMapBloc isometricMapBloc;
 
   IsometricGame({required this.isometricMapBloc});
@@ -33,6 +32,8 @@ class IsometricGame extends FlameGame {
           size: Vector2(tileSize, tileSize / 2),
           tileId: tileId,
         );
+
+        isometricMapBloc.resources?[row][column] = null;
 
         tiles.add(tile);
       }

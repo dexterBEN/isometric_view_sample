@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:isomap_sample/domain/models/resource.dart';
 
 abstract class IsometricMapState extends Equatable {
 
@@ -23,7 +24,7 @@ class TileSelected extends IsometricMapState {
 }
 
 class CreateNewResource extends IsometricMapState {
-  final String resource;
+  final Resource resource;
   const CreateNewResource(this.resource);
   
   @override

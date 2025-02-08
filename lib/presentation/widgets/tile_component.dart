@@ -31,6 +31,7 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
   @override
   void onTapDown(TapDownEvent event) {
     _isHovered = !_isHovered;
+    // Exemple : émettre un événement au Bloc lors d'un tap
     bloc.add(TileClicked(tileId!));
   }
 
@@ -62,7 +63,7 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
     } 
 
     if (state is CreateNewResource && _isHovered) {
-      resourceImagePath = state.resource;
+      resourceImagePath = state.resource.iconPath;
       tileImage = await Flame.images.load(resourceImagePath!);
       _isHovered = false;
     }
@@ -88,12 +89,12 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
     final centerX = bounds.center.dx;
     final centerY = bounds.center.dy;
     
-      final imageWidth = tileImage!.width.toDouble();
+    final imageWidth = tileImage!.width.toDouble();
     final imageHeight = tileImage!.height.toDouble();
 
-    final offsetX = centerX - (imageWidth / 2);
-    final offsetY = centerY - imageHeight / 2;
-      canvas.drawImage(tileImage!, Offset(offsetX, offsetY), _borderPaint);
+    final offsetX = (centerX - (imageWidth / 8)) - 24;
+    final offsetY = (centerY - (imageHeight / 2)) - 18;
+    canvas.drawImage(tileImage!, Offset(offsetX, offsetY), _borderPaint);
     
   }
 }
