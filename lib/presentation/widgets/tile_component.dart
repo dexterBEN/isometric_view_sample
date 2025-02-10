@@ -16,12 +16,12 @@ import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
 class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListenable<IsometricMapBloc, IsometricMapState> {
   final Paint _borderPaint = Paint();
   bool _isHovered = false;
-  int tileId;
   String? resourceImagePath;
+  Map<String, int> resourcePosition;
   late dartui.Image? tileImage;
 
   
-  TileComponent({Vector2? position, Vector2? size, required this.tileId}) {
+  TileComponent({Vector2? position, Vector2? size, required this.resourcePosition}) {
     this.position = position!;
     this.size = size!;
 
@@ -32,7 +32,7 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
   void onTapDown(TapDownEvent event) {
     _isHovered = !_isHovered;
     // Exemple : émettre un événement au Bloc lors d'un tap
-    bloc.add(TileClicked(tileId!));
+    bloc.add(TileClicked(resourcePosition));
   }
 
   @override
@@ -58,7 +58,7 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
   @override
   void onNewState(IsometricMapState state) async {
 
-    if (state is TileSelected && state.tileId == tileId) {
+    if (state is TileSelected && state.resourcePosition!["x"] == resourcePosition["x"] && state.resourcePosition!["y"] == resourcePosition["y"]) {
       _isHovered = true;
     } 
 
@@ -73,7 +73,7 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
   bool listenWhen(IsometricMapState previousState, IsometricMapState newState) {
     // Contrôle de l'écoute des états (facultatif)
     
-    if(newState is TileSelected && newState.tileId == tileId) {
+    if(newState is TileSelected && newState.resourcePosition!["x"] == resourcePosition["x"] && newState.resourcePosition!["y"] == resourcePosition["y"]) {
       return true;
     }
 

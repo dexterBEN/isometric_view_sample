@@ -8,6 +8,7 @@ class IsometricMapBloc extends Bloc<IsometricMapEvent, IsometricMapState>{
   final int rows;
   final int columns;
   late List<List<Resource?>> resourceList;
+  Map<String, int>? selectedTile;
 
   IsometricMapBloc({required this.rows, required this.columns}) : super (MapInitial()){
 
@@ -16,13 +17,22 @@ class IsometricMapBloc extends Bloc<IsometricMapEvent, IsometricMapState>{
     on<TileClicked>((event, emit) async {
 
       //menuBloc!.add(OpenMenu());
-      emit(TileSelected(event.tileId));
+      print("Position selected:${event.resourcePosition["x"]} / ${event.resourcePosition["y"]}");
+      selectedTile = event.resourcePosition;
+      emit(TileSelected(event.resourcePosition));
     });
 
     on<SelectRessource>((event, emit) async {
       print("Ressource select ${event.resource}");
-      final newResource = Resource(id: 4556654, iconPath: event.resource);
-      emit(CreateNewResource(newResource));
+
+      if(selectedTile != null) 
+      {
+        final newResource = Resource(id: 4556654, iconPath: event.resource);
+        resourceList[selectedTile!["x"]!][selectedTile!["y"]!] = Resource(id: 4556654, iconPath: event.resource);
+        emit(CreateNewResource(newResource, selectedTile));
+        print("-------------->$resourceList");
+        selectedTile = null;
+      }
     });
   }
 }

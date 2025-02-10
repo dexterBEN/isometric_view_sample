@@ -16,17 +16,18 @@ class MapInitial extends IsometricMapState {
 }
 
 class TileSelected extends IsometricMapState {
-  final int tileId;
-  const TileSelected(this.tileId);
+  final Map<String, int>? resourcePosition;
+  const TileSelected(this.resourcePosition);
   
   @override
-  List<Object> get props => [tileId];
+  List<Object> get props => [resourcePosition!];
 }
 
 class CreateNewResource extends IsometricMapState {
   final Resource resource;
-  const CreateNewResource(this.resource);
+  final Map<String, int>? resourcePosition;
+  const CreateNewResource(this.resource, this.resourcePosition);
   
   @override
-  List<Object> get props => [resource];
+  List<Object> get props => [resource, resourcePosition!];
 }

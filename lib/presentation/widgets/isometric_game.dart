@@ -20,19 +20,19 @@ class IsometricGame extends FlameGame {
   Future<void> onLoad() async {
     for (int row = 0; row < isometricMapBloc.rows; row++) {
       for (int column = 0; column < isometricMapBloc.columns; column++) {
-        final int tileId = row * isometricMapBloc.columns + column;
         final double x = startX + (column - row) * (tileSize / 2);
         final double y = startY + (row + column) * (tileSize / 4);
 
         final tile = TileComponent(
           position: Vector2(x, y),
           size: Vector2(tileSize, tileSize / 2),
-          tileId: tileId,
+          resourcePosition: {"x": row, "y": column}
         );
 
         //isometricMapBloc.resourceList[row][column] = null;
 
         //print("${row.toDouble()} / ${column.toDouble()}");
+        print("$x / $y");
 
         tiles.add(tile);
       }
@@ -48,4 +48,6 @@ class IsometricGame extends FlameGame {
 
     await add(providers);
   }
+
+  
 }
