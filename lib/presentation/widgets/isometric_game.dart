@@ -7,23 +7,20 @@ import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
 import 'package:isomap_sample/presentation/widgets/tile_component.dart';
 
 class IsometricGame extends FlameGame {
-  static const int rows = 5; // Nombre de lignes
-  static const int columns = 5; // Nombre de colonnes
   final double tileSize = 64.0; // Taille de chaque tuile
   final List<TileComponent> tiles = [];
 
-  double get startX => (size.x - (columns * tileSize)) / 2;
-  double get startY => (size.y - (rows * tileSize)) / 2;
-
   IsometricMapBloc isometricMapBloc;
+  double get startX => (size.x - (isometricMapBloc.columns * tileSize)) / 2;
+  double get startY => (size.y - (isometricMapBloc.rows * tileSize)) / 2;
 
   IsometricGame({required this.isometricMapBloc});
 
   @override
   Future<void> onLoad() async {
-    for (int row = 0; row < rows; row++) {
-      for (int column = 0; column < columns; column++) {
-        final int tileId = row * columns + column;
+    for (int row = 0; row < isometricMapBloc.rows; row++) {
+      for (int column = 0; column < isometricMapBloc.columns; column++) {
+        final int tileId = row * isometricMapBloc.columns + column;
         final double x = startX + (column - row) * (tileSize / 2);
         final double y = startY + (row + column) * (tileSize / 4);
 
@@ -33,11 +30,15 @@ class IsometricGame extends FlameGame {
           tileId: tileId,
         );
 
-        isometricMapBloc.resources?[row][column] = null;
+        //isometricMapBloc.resourceList[row][column] = null;
+
+        //print("${row.toDouble()} / ${column.toDouble()}");
 
         tiles.add(tile);
       }
     }
+
+    print(isometricMapBloc.resourceList);
 
     final providers = FlameMultiBlocProvider(providers: [
       FlameBlocProvider<IsometricMapBloc, IsometricMapState>.value(

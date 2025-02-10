@@ -5,14 +5,17 @@ import 'package:isomap_sample/presentation/bloc/map/isometric_map_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IsometricMapBloc extends Bloc<IsometricMapEvent, IsometricMapState>{
+  final int rows;
+  final int columns;
+  late List<List<Resource?>> resourceList;
 
-  List<List<RessourceMap?>>? resources;
-  IsometricMapBloc({this.resources}) : super (MapInitial()){
+  IsometricMapBloc({required this.rows, required this.columns}) : super (MapInitial()){
+
+    resourceList = List.generate(rows, (_) => List.generate(columns, (_) => null));
 
     on<TileClicked>((event, emit) async {
 
       //menuBloc!.add(OpenMenu());
-      print("Tile has been clicked ${event.tileId}");
       emit(TileSelected(event.tileId));
     });
 

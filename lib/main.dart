@@ -6,7 +6,7 @@ import 'package:isomap_sample/presentation/widgets/menu_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  var blocInstance = IsometricMapBloc();
+  var blocInstance = IsometricMapBloc(rows: 5,columns: 5);
   runApp(
     MultiBlocProvider(
       providers: [
