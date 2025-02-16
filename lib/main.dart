@@ -16,16 +16,19 @@ void main() {
       ],
       child: MaterialApp(
         home: Scaffold(
-          body: Stack(
-            children: [
-              GameWidget(game: IsometricGame(isometricMapBloc: blocInstance)),
-              Positioned(
-                right: 550,
-                bottom: 50,
-                child: MenuWidget(), // Menu Flutter
-              ),
-            ],
-          ),
+          appBar: AppBar(automaticallyImplyLeading: true,),
+          body: GameWidget(game: IsometricGame(isometricMapBloc: blocInstance)),
+          drawer: MenuWidget(),
+          // Stack(
+          //   children: [
+          //     GameWidget(game: IsometricGame(isometricMapBloc: blocInstance)),
+          //     Positioned(
+          //       right: 550,
+          //       bottom: 50,
+          //       child: MenuWidget(), // Menu Flutter
+          //     ),
+          //   ],
+          // ),
         ),
       ),
     ),

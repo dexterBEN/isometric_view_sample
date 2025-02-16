@@ -19,38 +19,64 @@ class MenuWidget extends StatelessWidget {
       "../../../assets/blocks_7.png"
     ];
 
-    return BlocConsumer<IsometricMapBloc, IsometricMapState>(
-      listener: (context, state) {
-  
-      },
-      builder: (BuildContext context, IsometricMapState state) {
-        return Container(
-          width: 900,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade900.withOpacity(0.8),
-            borderRadius: BorderRadius.all(
-              Radius.circular(5),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(
-              paths.length,
-              (index) {
-                return InkWell(
-                  child: Image.network(paths[index]),
-                  onTap: () {
-                    final isometricMapBloc = context.read<IsometricMapBloc>();
+    List<Widget> menueElements = [];
 
-                    isometricMapBloc.add(SelectRessource(paths[index]));
-                  },
-                );
-              },
-            ),
+    menueElements.addAll([
+      DrawerHeader(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
           ),
+        ),
+        child: Text("Title"),
+      ),
+      ...List<ListTile>.generate(paths.length, (int index){
+        return ListTile(
+          leading: Image.network(paths[index]),
+          onTap: () {
+            var isometricMapBloc = context.read<IsometricMapBloc>();
+            isometricMapBloc.add(SelectRessource(paths[index]));
+          },
+
         );
-      },
-    );
+      },)
+    ]);
+
+    return Drawer(child: ListView(children: menueElements,padding: EdgeInsets.zero));
+
+    //BlocConsumer<IsometricMapBloc, IsometricMapState>(
+    //   listener: (context, state) {
+
+    //   },
+    //   builder: (BuildContext context, IsometricMapState state) {
+    //     return Container(
+    //       width: 900,
+    //       height: 80,
+    //       decoration: BoxDecoration(
+    //         color: Colors.grey.shade900.withOpacity(0.8),
+    //         borderRadius: BorderRadius.all(
+    //           Radius.circular(5),
+    //         ),
+    //       ),
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //         children: List.generate(
+    //           paths.length,
+    //           (index) {
+    //             return InkWell(
+    //               child: Image.network(paths[index]),
+    //               onTap: () {
+    //                 final isometricMapBloc = context.read<IsometricMapBloc>();
+
+    //                 isometricMapBloc.add(SelectRessource(paths[index]));
+    //               },
+    //             );
+    //           },
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }
