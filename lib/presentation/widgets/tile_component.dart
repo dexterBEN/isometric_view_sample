@@ -32,6 +32,7 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
   void onTapDown(TapDownEvent event) {
     _isHovered = !_isHovered;
     // Exemple : émettre un événement au Bloc lors d'un tap
+    print("position selected ======> ${resourcePosition}");
     bloc.add(TileClicked(resourcePosition));
   }
 
@@ -67,6 +68,13 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
       tileImage = await Flame.images.load(resourceImagePath!);
       _isHovered = false;
     }
+
+    if (state is ResourceDeletion && state.resourcePosition?["x"] == resourcePosition["x"] && state.resourcePosition?["y"] == resourcePosition["y"]) {
+  resourceImagePath = null;
+  tileImage = null; // 🔥 Remet à zéro correctement
+  _isHovered = false;
+}
+
   }
 
   @override
@@ -78,6 +86,10 @@ class TileComponent extends PositionComponent with TapCallbacks, FlameBlocListen
     }
 
     if (newState is CreateNewResource && _isHovered) {
+      return true;
+    }
+
+    if(newState is ResourceDeletion && newState.resourcePosition!["x"] == resourcePosition["x"] && newState.resourcePosition!["y"] == resourcePosition["y"]) {
       return true;
     }
 

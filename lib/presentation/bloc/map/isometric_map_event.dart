@@ -31,3 +31,12 @@ class UpdateSelectedTileEvent extends IsometricMapEvent {
   @override
   List<Object?> get props => [imagePath];
 }
+
+class DeleteResource extends IsometricMapEvent {
+
+  const DeleteResource();
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

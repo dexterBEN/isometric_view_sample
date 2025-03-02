@@ -31,3 +31,12 @@ class CreateNewResource extends IsometricMapState {
   @override
   List<Object> get props => [resource, resourcePosition!];
 }
+
+class ResourceDeletion extends IsometricMapState {
+  final Resource resourceToDelete;
+  final Map<String, int>? resourcePosition;
+  const ResourceDeletion({required this.resourceToDelete, this.resourcePosition});
+  
+  @override
+  List<Object> get props => [resourceToDelete, resourcePosition!];
+}

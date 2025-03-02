@@ -32,7 +32,7 @@ class IsometricGame extends FlameGame {
         //isometricMapBloc.resourceList[row][column] = null;
 
         //print("${row.toDouble()} / ${column.toDouble()}");
-        print("$x / $y");
+        print("$row / $column");
 
         tiles.add(tile);
       }

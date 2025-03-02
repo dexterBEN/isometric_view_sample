@@ -29,10 +29,22 @@ class IsometricMapBloc extends Bloc<IsometricMapEvent, IsometricMapState>{
       {
         final newResource = Resource(id: 4556654, iconPath: event.resource);
         resourceList[selectedTile!["x"]!][selectedTile!["y"]!] = Resource(id: 4556654, iconPath: event.resource);
+        print("SelectRessource------------>$resourceList");
         emit(CreateNewResource(newResource, selectedTile));
-        print("-------------->$resourceList");
         selectedTile = null;
       }
+    });
+
+    on<DeleteResource>((event, emit){
+
+
+      Resource resourceToRemove = resourceList[selectedTile!["x"]!][selectedTile!["y"]!]!;
+
+      resourceList[selectedTile!["x"]!][selectedTile!["y"]!] = null;
+
+      print("DeleteResource------------>$resourceList");
+
+      emit(ResourceDeletion(resourceToDelete: resourceToRemove, resourcePosition: {"x":selectedTile!["x"]!, "y":selectedTile!["y"]!}));
     });
   }
 }

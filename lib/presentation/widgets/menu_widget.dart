@@ -31,19 +31,39 @@ class MenuWidget extends StatelessWidget {
         ),
         child: Text("Title"),
       ),
-      ...List<ListTile>.generate(paths.length, (int index){
-        return ListTile(
-          leading: Image.network(paths[index]),
-          onTap: () {
-            var isometricMapBloc = context.read<IsometricMapBloc>();
-            isometricMapBloc.add(SelectRessource(paths[index]));
+      ExpansionTile(
+        title: Text("ressources"),
+        children: List<ListTile>.generate(
+          paths.length,
+          (int index) {
+            return ListTile(
+              leading: Image.network(paths[index]),
+              onTap: () {
+                var isometricMapBloc = context.read<IsometricMapBloc>();
+                isometricMapBloc.add(SelectRessource(paths[index]));
+              },
+            );
           },
-
-        );
-      },)
+        ),
+      ),
+      ExpansionTile(
+        title: Text("other actions"),
+        children: [
+          ElevatedButton(onPressed: (){
+            var isometricMapBloc = context.read<IsometricMapBloc>();
+                isometricMapBloc.add(DeleteResource());
+          }, 
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            elevation: 0,
+          ),
+          child:Text("delete") ),
+        ]
+      )
     ]);
 
-    return Drawer(child: ListView(children: menueElements,padding: EdgeInsets.zero));
+    return Drawer(
+        child: ListView(children: menueElements, padding: EdgeInsets.zero));
 
     //BlocConsumer<IsometricMapBloc, IsometricMapState>(
     //   listener: (context, state) {
